@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجر قطع غيار إلنترا N</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0D10;
+    --panel: #15181D;
+    --panel-2: #1B1F26;
+    --line: #262B33;
+    --text: #F2F4F7;
+    --muted: #8A93A0;
+    --n-blue: #1B4CE4;
+    --n-red: #E1131F;
+    --n-sky: #4FC3F7;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    line-height: 1.7;
+  }
+
+  /* شريط السباق - يظهر مرة واحدة فقط أعلى الصفحة */
+  .livery-stripe{
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(90deg,
+      var(--n-blue) 0%, var(--n-blue) 33%,
+      var(--n-red) 33%, var(--n-red) 66%,
+      var(--n-sky) 66%, var(--n-sky) 100%);
+  }
+
+  header{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 64px 24px 32px;
+    text-align: center;
+  }
+
+  .badge{
+    display:inline-block;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: var(--n-blue);
+    border: 1.5px solid var(--n-blue);
+    border-radius: 4px;
+    padding: 4px 14px;
+    margin-bottom: 22px;
+  }
+
+  h1{
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 900;
+    margin: 0 0 12px;
+  }
+
+  h1 span{ color: var(--n-red); }
+
+  header p{
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* شريط البحث */
+  .search-wrap{
+    max-width: 640px;
+    margin: 36px auto 0;
+    padding: 0 24px;
+  }
+
+  .search-box{
+    display:flex;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 8px;
+  }
+
+  .search-box input{
+    flex:1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+
+  .search-box input::placeholder{ color: var(--muted); }
+
+  .search-box button{
+    background: var(--n-blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 24px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+
+  .search-box button:hover{ background: #163ea8; }
+
+  .search-hint{
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  /* حالة عدم وجود القطعة */
+  #not-found{
+    display:none;
+    max-width: 640px;
+    margin: 18px auto 0;
+    padding: 16px 20px;
+    background: var(--panel-2);
+    border: 1px solid var(--n-red);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14.5px;
+    text-align: center;
+  }
+
+  #not-found a{
+    color: var(--n-sky);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* الشبكة */
+  main{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .section-label{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color .15s ease;
+  }
+
+  .card:hover{ border-color: var(--n-blue); }
+
+  .card.hidden{ display:none; }
+
+  .part-name{
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .part-meta{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    font-size: 14px;
+  }
+
+  .price{
+    color: var(--n-sky);
+    font-weight: 700;
+  }
+
+  .status{
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .status.in{
+    color: #7CE0A0;
+    background: rgba(124,224,160,0.12);
+  }
+
+  .status.out{
+    color: #F09090;
+    background: rgba(240,144,144,0.12);
+  }
+
+  .card .google-link{
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+  }
+
+  .card .google-link span{ color: var(--n-blue); font-weight: 700; }
+
+  footer{
+    text-align:center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 0 24px 48px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="livery-stripe"></div>
+
+  <header>
+    <div class="badge">HYUNDAI N PERFORMANCE PARTS</div>
+    <h1>متجر قطع غيار <span>إلنترا N</span></h1>
+    <p>قطع غيار وأداء أصلية لسيارتك — دوّر عن القطعة اللي تحتاجها ونطلعها لك، ولو ما لقيناها نبحثها لك في Google.</p>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <input id="searchInput" type="text" placeholder="مثال: فحمات، توربو، شكمان..." />
+      <button onclick="searchParts()">بحث</button>
+    </div>
+    <div class="search-hint">اضغط Enter أو زر البحث — إذا القطعة موجودة بنعرضها، وبنفتح لك بحث Google عنها بنفس الوقت</div>
+    <div id="not-found"></div>
+  </div>
+
+  <main>
+    <div class="section-label">كل القطع المتوفرة</div>
+    <div class="grid" id="partsGrid"></div>
+  </main>
+
+  <footer>متجر إلنترا N — للأغراض التعليمية</footer>
+
+<script>
+  const parts = [
+    { name: "طقم فحمات فرامل أمامية", en: "Brake Pads", price: 350, available: true },
+    { name: "توربو أصلي",              en: "Turbocharger", price: 4200, available: true },
+    { name: "شكمان رياضي",             en: "Cat-Back Exhaust", price: 3100, available: true },
+    { name: "مساعدات كويلوفر",         en: "Coilovers", price: 3800, available: false },
+    { name: "قفل تفاضلي",              en: "Limited-Slip Differential", price: 5200, available: true },
+    { name: "فلتر هواء رياضي",         en: "Cold Air Intake", price: 650, available: true },
+    { name: "بواجي احتراق",            en: "Spark Plugs", price: 180, available: true },
+    { name: "طقم دبرياج معزز",         en: "Performance Clutch Kit", price: 2900, available: true },
+    { name: "رديتر مبرد إضافي",        en: "Intercooler", price: 2200, available: true },
+    { name: "جنوط رياضية 19 إنش",      en: "Sport Wheels 19\"", price: 6500, available: false },
+  ];
+
+  const grid = document.getElementById('partsGrid');
+  const notFound = document.getElementById('not-found');
+  const input = document.getElementById('searchInput');
+
+  function googleUrl(query){
+    return "https://www.google.com/search?q=" + encodeURIComponent(query + " Hyundai Elantra N شراء");
+  }
+
+  function renderParts(list){
+    grid.innerHTML = "";
+    list.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="part-name">${p.name} <span style="color:var(--muted); font-weight:400; font-size:13px;">(${p.en})</span></div>
+        <div class="part-meta">
+          <span class="price">${p.price} ﷼</span>
+          <span class="status ${p.available ? 'in' : 'out'}">${p.available ? 'متوفرة' : 'غير متوفرة'}</span>
+        </div>
+        <a class="google-link" href="${googleUrl(p.name)}" target="_blank" rel="noopener">بحث Google عن هذي القطعة <span>←</span></a>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function searchParts(){
+    const query = input.value.trim();
+    if(!query){ renderParts(parts); notFound.style.display = 'none'; return; }
+
+    const results = parts.filter(p =>
+      p.name.includes(query) || p.en.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if(results.length > 0){
+      renderParts(results);
+      notFound.style.display = 'none';
+    } else {
+      renderParts([]);
+      notFound.innerHTML = `ما لقينا "<b>${query}</b>" بالمتجر. <a href="${googleUrl(query)}" target="_blank" rel="noopener">اضغط هنا للبحث عنها في Google ←</a>`;
+      notFound.style.display = 'block';
+    }
+
+    // يفتح بحث Google تلقائياً عن أول نتيجة (أو عن الكلمة نفسها إذا ما فيه نتائج)
+    const target = results.length > 0 ? results[0].name : query;
+    window.open(googleUrl(target), '_blank');
+  }
+
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter') searchParts();
+  });
+
+  renderParts(parts);
+</script>
+
+</body>
+</html>
