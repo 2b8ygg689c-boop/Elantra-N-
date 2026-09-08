@@ -17,6 +17,7 @@
     --n-blue: #1B4CE4;
     --n-red: #E1131F;
     --n-sky: #4FC3F7;
+    --wa-green: #25D366;
   }
 
   *{ box-sizing: border-box; }
@@ -29,7 +30,6 @@
     line-height: 1.7;
   }
 
-  /* شريط السباق - يظهر مرة واحدة فقط أعلى الصفحة */
   .livery-stripe{
     height: 6px;
     width: 100%;
@@ -42,24 +42,24 @@
   header{
     max-width: 980px;
     margin: 0 auto;
-    padding: 64px 24px 32px;
+    padding: 56px 24px 28px;
     text-align: center;
   }
 
   .badge{
     display:inline-block;
     font-weight: 900;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 1px;
     color: var(--n-blue);
     border: 1.5px solid var(--n-blue);
     border-radius: 4px;
     padding: 4px 14px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
 
   h1{
-    font-size: clamp(30px, 5vw, 46px);
+    font-size: clamp(28px, 5vw, 44px);
     font-weight: 900;
     margin: 0 0 12px;
   }
@@ -68,15 +68,28 @@
 
   header p{
     color: var(--muted);
-    font-size: 17px;
-    max-width: 520px;
+    font-size: 16px;
+    max-width: 560px;
     margin: 0 auto;
   }
 
-  /* شريط البحث */
+  .how-it-works{
+    max-width: 620px;
+    margin: 22px auto 0;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .how-it-works b{ color: var(--n-sky); }
+
   .search-wrap{
     max-width: 640px;
-    margin: 36px auto 0;
+    margin: 30px auto 0;
     padding: 0 24px;
   }
 
@@ -117,14 +130,13 @@
 
   .search-box button:hover{ background: #163ea8; }
 
-  .search-hint{
+  .result-count{
     text-align: center;
     color: var(--muted);
     font-size: 13px;
     margin-top: 10px;
   }
 
-  /* حالة عدم وجود القطعة */
   #not-found{
     display:none;
     max-width: 640px;
@@ -138,17 +150,12 @@
     text-align: center;
   }
 
-  #not-found a{
-    color: var(--n-sky);
-    font-weight: 700;
-    text-decoration: none;
-  }
+  #not-found a{ color: var(--wa-green); font-weight: 700; text-decoration: none; }
 
-  /* الشبكة */
   main{
-    max-width: 980px;
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    padding: 40px 24px 80px;
   }
 
   .section-label{
@@ -169,15 +176,15 @@
 
   .grid{
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
   }
 
   .card{
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 12px;
-    padding: 20px;
+    padding: 18px;
     display:flex;
     flex-direction: column;
     gap: 10px;
@@ -185,53 +192,29 @@
   }
 
   .card:hover{ border-color: var(--n-blue); }
-
   .card.hidden{ display:none; }
 
-  .part-name{
-    font-weight: 700;
-    font-size: 16px;
-  }
+  .part-name{ font-weight: 700; font-size: 15px; }
 
-  .part-meta{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    font-size: 14px;
-  }
+  .price{ color: var(--n-sky); font-weight: 700; font-size: 14px; }
 
-  .price{
-    color: var(--n-sky);
-    font-weight: 700;
-  }
-
-  .status{
-    font-size: 12.5px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-  }
-
-  .status.in{
-    color: #7CE0A0;
-    background: rgba(124,224,160,0.12);
-  }
-
-  .status.out{
-    color: #F09090;
-    background: rgba(240,144,144,0.12);
-  }
-
-  .card .google-link{
+  .wa-btn{
     margin-top: 4px;
-    font-size: 13px;
-    color: var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 8px;
+    background: var(--wa-green);
+    color: #06210F;
     text-decoration: none;
-    border-top: 1px solid var(--line);
-    padding-top: 10px;
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: filter .15s ease;
   }
 
-  .card .google-link span{ color: var(--n-blue); font-weight: 700; }
+  .wa-btn:hover{ filter: brightness(1.08); }
 
   footer{
     text-align:center;
@@ -239,6 +222,8 @@
     font-size: 13px;
     padding: 0 24px 48px;
   }
+
+  footer a{ color: var(--n-sky); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -248,45 +233,44 @@
   <header>
     <div class="badge">HYUNDAI N PERFORMANCE PARTS</div>
     <h1>متجر قطع غيار <span>إلنترا N</span></h1>
-    <p>قطع غيار وأداء أصلية لسيارتك — دوّر عن القطعة اللي تحتاجها ونطلعها لك، ولو ما لقيناها نبحثها لك في Google.</p>
+    <p>القطع الأصلية اللي وفّرها متجر whoosh motorsports لسيارة إلنترا N — دوّر عن القطعة، واضغط "راسلنا واتساب" عشان نتأكد من توفرها ونرد عليك.</p>
+    <div class="how-it-works">
+      اختر أي قطعة واضغط زر <b>واتساب</b> — بيتفتح لك واتساب برسالة جاهزة على الرقم <b dir="ltr">0546300074</b>. إرسال الرسالة معناها إننا بنراجع الطلب، وإذا كانت القطعة موجودة عندنا حنرد عليك.
+    </div>
   </header>
 
   <div class="search-wrap">
     <div class="search-box">
-      <input id="searchInput" type="text" placeholder="مثال: فحمات، توربو، شكمان..." />
+      <input id="searchInput" type="text" placeholder="ابحث عن قطعة: تيربو، شكمان، انتيك، فرامل..." />
       <button onclick="searchParts()">بحث</button>
     </div>
-    <div class="search-hint">اضغط Enter أو زر البحث — إذا القطعة موجودة بنعرضها، وبنفتح لك بحث Google عنها بنفس الوقت</div>
+    <div class="result-count" id="resultCount"></div>
     <div id="not-found"></div>
   </div>
 
   <main>
-    <div class="section-label">كل القطع المتوفرة</div>
+    <div class="section-label">كل القطع المتوفرة (<span id="totalCount">0</span> قطعة)</div>
     <div class="grid" id="partsGrid"></div>
   </main>
 
-  <footer>متجر إلنترا N — للأغراض التعليمية</footer>
+  <footer>متجر إلنترا N — القطع من <a href="https://whooshmotorsports.com" target="_blank" rel="noopener">whooshmotorsports.com</a></footer>
 
 <script>
-  const parts = [
-    { name: "طقم فحمات فرامل أمامية", en: "Brake Pads", price: 350, available: true },
-    { name: "توربو أصلي",              en: "Turbocharger", price: 4200, available: true },
-    { name: "شكمان رياضي",             en: "Cat-Back Exhaust", price: 3100, available: true },
-    { name: "مساعدات كويلوفر",         en: "Coilovers", price: 3800, available: false },
-    { name: "قفل تفاضلي",              en: "Limited-Slip Differential", price: 5200, available: true },
-    { name: "فلتر هواء رياضي",         en: "Cold Air Intake", price: 650, available: true },
-    { name: "بواجي احتراق",            en: "Spark Plugs", price: 180, available: true },
-    { name: "طقم دبرياج معزز",         en: "Performance Clutch Kit", price: 2900, available: true },
-    { name: "رديتر مبرد إضافي",        en: "Intercooler", price: 2200, available: true },
-    { name: "جنوط رياضية 19 إنش",      en: "Sport Wheels 19\"", price: 6500, available: false },
-  ];
+  const WHATSAPP_NUMBER = "966546300074"; // 0546300074 بصيغة دولية
+
+  const parts = [{"name": "whoosh motorsports JDM Style Single Exit Exhaust Kit", "price": 399.99}, {"name": "whoosh motorsports 4\" Full Length Downpipe", "price": 399.99}, {"name": "whoosh motorsports 4\" Titanium Single Exit RACE Exhaust Kit", "price": 525.0}, {"name": "whoosh motorsports Titanium Mid Pipe Kit", "price": 574.99}, {"name": "whoosh motorsports Titanium Axle Back Exhaust Kit", "price": 999.99}, {"name": "whoosh motorsports 3\" Titanium Single Exit RACE Exhaust Kit", "price": 449.99}, {"name": "PURE450 Hybrid Turbo Upgrade", "price": 1095.0}, {"name": "PURE550 Hybrid Turbo Upgrade", "price": 1595.0}, {"name": "T51R Mod PURE550 Hybrid Turbo Upgrade", "price": 2195.0}, {"name": "Hyundai MOBIS CN7 OEM Turbocharger", "price": 1149.99}, {"name": "Ramair Performance Intake Kit", "price": 399.99}, {"name": "whoosh motorsports 4\" POWDER COATED Titanium Intake Kit", "price": 524.99}, {"name": "whoosh motorsports 4\" Titanium Intake Kit", "price": 449.99}, {"name": "whoosh motorsports V2 4\" Titanium Intake Kit", "price": 499.99}, {"name": "whoosh motorsports Silicone Breather Hose", "price": 19.99}, {"name": "Lap3 Tuning STAGE 1", "price": 1600.0}, {"name": "Lap3 Tuning STAGE 1.5", "price": 1750.0}, {"name": "Lap3 Tuning STAGE 2", "price": 1850.0}, {"name": "Lap3 Tuning STAGE 2.5", "price": 1950.0}, {"name": "Lap3 Tuning Track eLSD ECU Tune", "price": 850.0}, {"name": "whoosh motorsports Coolant Hose Kit", "price": 139.99}, {"name": "Koyo Racing Radiator", "price": 469.99}, {"name": "HKS Super Power Flow Air Filter Upgrade Kit", "price": 199.99}, {"name": "AWE SwitchPath Cat-Back Exhaust System", "price": 1695.0}, {"name": "AWE Track Edition Cat-Back Exhaust System", "price": 1245.0}, {"name": "Carbon Fiber Mirror Caps", "price": 249.99}, {"name": "LIQUI MOLY 5W-40 Oil Change Service Kit", "price": 79.99}, {"name": "N Performance Engine Oil 0W-30", "price": 39.99}, {"name": "XCLUTCH Stage 1 Clutch Kit", "price": 1540.04}, {"name": "Brake Cooling Ducts Upgrade", "price": 59.99}, {"name": "whoosh motorsports Brake Fluid Reservoir Sock", "price": 14.99}, {"name": "whoosh motorsports Coolant Reservoir", "price": 349.99}, {"name": "whoosh motorsports AEVS Active Exhaust Valve Spring", "price": 18.99}, {"name": "whoosh motorsports Premium HD AEVS", "price": 24.99}, {"name": "whoosh motorsports Titanium Clamp-On Exhaust Tips", "price": 99.99}, {"name": "whoosh motorsports Black Coated Stainless Exhaust Tips", "price": 89.99}, {"name": "whoosh motorsports Front Mount Intercooler Upgrade", "price": 675.0}, {"name": "Megan Racing Front Mount Intercooler Kit", "price": 489.99}, {"name": "Forge Motorsport Intercooler", "price": 1070.0}, {"name": "Forge Cold Side Boost Pipe", "price": 299.99}, {"name": "aFe Silver Bullet Throttle Body Spacer Kit", "price": 139.0}, {"name": "Berrys Magnetic Paddle Shifters", "price": 420.0}, {"name": "N Performance Sabelt Tow Strap Set", "price": 329.99}, {"name": "Forge Motorsport Oil Cooler Kit", "price": 899.0}, {"name": "whoosh motorsports Turbo Inlet Kit", "price": 149.0}, {"name": "A.O. Customs PTFE Turbo Inlet Gasket", "price": 14.99}, {"name": "WELDSPEED Intake Manifold", "price": 1499.0}, {"name": "N Performance Carbon Fiber Exhaust Tips", "price": 499.99}, {"name": "whoosh motorsports Lower Torque Arm Bushing Set", "price": 24.99}, {"name": "whoosh motorsports Trunk Pull Strap", "price": 19.99}, {"name": "whoosh motorsports HKS Blow Off Valve Adapter Kit", "price": 44.99}, {"name": "TurboXS HKS Blow Off Valve Adapter Kit", "price": 54.99}, {"name": "whoosh motorsports Performance Coil Packs (Set of 4)", "price": 124.99}, {"name": "whoosh motorsports Lightweight Water Pump Pulley", "price": 49.99}, {"name": "whoosh motorsports Performance Downpipe", "price": 289.99}, {"name": "XFORCE 4\" Turbo Downpipe with Hi-Flow Cat", "price": 835.0}, {"name": "Custom Performance Engineering QKspl Cast Bellmouth Downpipe", "price": 664.05}, {"name": "whoosh motorsports Titanium Downpipe Stud Kit", "price": 49.99}, {"name": "ARP Downpipe Hardware Kit", "price": 64.99}, {"name": "Hyundai OEM Turbo to Downpipe Gasket", "price": 50.84}, {"name": "whoosh motorsports Exhaust Hanger for Downpipe", "price": 14.99}, {"name": "OEM Hyundai Replacement Exhaust Hanger for Downpipe", "price": 24.95}, {"name": "Hyundai OEM Downpipe to Mid Pipe Gasket", "price": 19.99}, {"name": "Mishimoto Exhaust Heat Wrap Set", "price": 74.0}, {"name": "whoosh motorsports Turbo Inlet Bolt Kit", "price": 14.99}, {"name": "whoosh motorsports Titanium License Plate Bolt Kit", "price": 14.99}, {"name": "whoosh motorsports Titanium Coil Pack Bolt Kit", "price": 19.99}, {"name": "Forge Short and Side Shifter Kit", "price": 152.01}, {"name": "SYSTEM UPGRADE Korea Short Shifter Kit", "price": 280.0}, {"name": "Velossa Tech BIG MOUTH Ram Air Intake Snorkel", "price": 159.0}, {"name": "Velossa Tech BIG MOUTH Ram Air Intake Snorkel Lit Kit", "price": 299.0}, {"name": "Torcon Trunk Puller Strap", "price": 29.0}, {"name": "EPR Carbon Fiber V2M Hood", "price": 999.99}, {"name": "Seibon OEM-Style Carbon Fiber Hood", "price": 1188.0}, {"name": "EPR Carbon Fiber Vented Hood", "price": 999.99}, {"name": "EPR Carbon Fiber TYPE-V Vented Hood", "price": 999.99}, {"name": "EPR Carbon Fiber OEM Style Hood", "price": 999.99}, {"name": "EPR Carbon Fiber Trunk", "price": 799.99}, {"name": "Genuine Carbon Fiber Rear Spoiler Extension", "price": 1099.99}, {"name": "MAXTON DESIGN Rear Spoiler Cap", "price": 225.0}, {"name": "N Performance Intake Kit", "price": 574.99}, {"name": "Forge Motorsport Revised Induction Kit", "price": 529.0}, {"name": "Injen Cold Air Intake - Red Wrinkle Finish", "price": 334.95}, {"name": "Injen Cold Air Intake - Black Wrinkle Finish", "price": 334.95}, {"name": "Injen Cold Air Intake - Polished Finish", "price": 334.95}, {"name": "Injen Hydroshield Water Repellant Pre-Filter Cover", "price": 27.95}, {"name": "aFe Takeda Momentum Cold Air Intake w/Pro 5R Filter", "price": 416.0}, {"name": "aFe Takeda Momentum Cold Air Intake w/Pro DRY S Filter", "price": 416.0}, {"name": "aFe Takeda Stage-2 Cold Air Intake w/Pro 5R Filter", "price": 368.0}, {"name": "aFe Takeda Stage-2 Cold Air Intake w/Pro DRY S Filter", "price": 368.0}, {"name": "K&N Typhoon Intake System", "price": 449.99}, {"name": "Forge Motorsport Turbo Inlet Adapter", "price": 227.42}, {"name": "aFe Takeda Turbo Inlet", "price": 149.99}, {"name": "whoosh motorsports aFe Takeda Inlet Hose Replacement", "price": 49.99}, {"name": "whoosh motorsports Replacement FOAM Filter", "price": 74.99}, {"name": "whoosh motorsports Replacement Pleated Filter", "price": 74.99}, {"name": "Forge Motorsport Replacement Pleated Filter", "price": 126.44}, {"name": "Forge Motorsport Replacement FOAM Filter", "price": 133.04}, {"name": "Heat Defense GOLD Protective Tape", "price": 52.04}, {"name": "Pierburg BOV Solenoid Upgrade", "price": 119.99}, {"name": "whoosh motorsports VTA BOV Block-Off Cap", "price": 19.99}, {"name": "Go Fast Bits TMS Respons Blow Off Valve Kit", "price": 307.8}, {"name": "Turbosmart Kompact Dual Port Blow Off Valve", "price": 261.89}, {"name": "Forge Motorsport Atmospheric and Recirculating Valve", "price": 301.19}, {"name": "SPEEDY Blow Off Valve Kit", "price": 273.0}, {"name": "HKS SQV IV BLACK EDITION Blow Off Valve", "price": 324.5}, {"name": "HKS SQV IV SILVER Blow Off Valve", "price": 324.5}, {"name": "HKS SSQV BOV Inserts", "price": 27.5}, {"name": "Forge Motorsport Valve Spring Tuning Kit", "price": 36.94}, {"name": "whoosh motorsports Billet Oil Filler Cap", "price": 39.99}, {"name": "HKS Billet Oil Filler Cap", "price": 99.99}, {"name": "Forge Motorsport Carbon Fiber Engine Cover", "price": 591.5}, {"name": "Hyundai Upgraded High Pressure Fuel Pump", "price": 299.99}, {"name": "Hyundai G70 High Pressure Fuel Pump Upgrade", "price": 309.99}, {"name": "Hyundai +8% Flow Injector Set of 4 w/Install Kit", "price": 374.99}, {"name": "Hyundai +15% Flow Injector Set of 4 w/Install Kit", "price": 349.99}, {"name": "Hyundai Fuel Injector Service Kit", "price": 49.99}, {"name": "ARP Custom Aged CA625+ Head Stud Kit", "price": 499.99}];
 
   const grid = document.getElementById('partsGrid');
   const notFound = document.getElementById('not-found');
   const input = document.getElementById('searchInput');
+  const resultCount = document.getElementById('resultCount');
+  const totalCount = document.getElementById('totalCount');
 
-  function googleUrl(query){
-    return "https://www.google.com/search?q=" + encodeURIComponent(query + " Hyundai Elantra N شراء");
+  totalCount.textContent = parts.length;
+
+  function waUrl(partName, price){
+    const msg = `مرحباً، أبغى أستفسر عن توفر هذي القطعة لسيارة إلنترا N:\n\n"${partName}"\nالسعر التقريبي: $${price.toFixed(2)}\n\nياليت تتأكدون من التوفر وترجعون لي.`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
 
   function renderParts(list){
@@ -295,12 +279,9 @@
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
-        <div class="part-name">${p.name} <span style="color:var(--muted); font-weight:400; font-size:13px;">(${p.en})</span></div>
-        <div class="part-meta">
-          <span class="price">${p.price} ﷼</span>
-          <span class="status ${p.available ? 'in' : 'out'}">${p.available ? 'متوفرة' : 'غير متوفرة'}</span>
-        </div>
-        <a class="google-link" href="${googleUrl(p.name)}" target="_blank" rel="noopener">بحث Google عن هذي القطعة <span>←</span></a>
+        <div class="part-name">${p.name}</div>
+        <div class="price">$${p.price.toFixed(2)}</div>
+        <a class="wa-btn" href="${waUrl(p.name, p.price)}" target="_blank" rel="noopener">راسلنا واتساب لهذي القطعة</a>
       `;
       grid.appendChild(card);
     });
@@ -308,24 +289,27 @@
 
   function searchParts(){
     const query = input.value.trim();
-    if(!query){ renderParts(parts); notFound.style.display = 'none'; return; }
 
-    const results = parts.filter(p =>
-      p.name.includes(query) || p.en.toLowerCase().includes(query.toLowerCase())
-    );
+    if(!query){
+      renderParts(parts);
+      notFound.style.display = 'none';
+      resultCount.textContent = '';
+      return;
+    }
+
+    const q = query.toLowerCase();
+    const results = parts.filter(p => p.name.toLowerCase().includes(q));
 
     if(results.length > 0){
       renderParts(results);
       notFound.style.display = 'none';
+      resultCount.textContent = `${results.length} نتيجة مطابقة`;
     } else {
       renderParts([]);
-      notFound.innerHTML = `ما لقينا "<b>${query}</b>" بالمتجر. <a href="${googleUrl(query)}" target="_blank" rel="noopener">اضغط هنا للبحث عنها في Google ←</a>`;
+      resultCount.textContent = '';
+      notFound.innerHTML = `ما لقينا "<b>${query}</b>" بالضبط بالمتجر. <a href="${waUrl(query, 0)}" target="_blank" rel="noopener">اضغط هنا لترسل لنا استفسار عنها في واتساب ←</a>`;
       notFound.style.display = 'block';
     }
-
-    // يفتح بحث Google تلقائياً عن أول نتيجة (أو عن الكلمة نفسها إذا ما فيه نتائج)
-    const target = results.length > 0 ? results[0].name : query;
-    window.open(googleUrl(target), '_blank');
   }
 
   input.addEventListener('keydown', e => {
